@@ -1,4 +1,5 @@
-﻿using Entropy.Notification;
+﻿using Entropy.Commands;
+using Entropy.Notification;
 
 using OOP_RGR_MVVM.Notification.Senders;
 
@@ -12,23 +13,13 @@ namespace Entropy.ViewModels.InputVMs
 {
     internal class InputVM
     {
-        private string _message;
-        private MessageSender _sender;
+        public string Message { get; set; }
 
-        public string Message 
-        {
-            get => _message;
-            set
-            {
-                _message = value;
-
-                _sender.UpdateMessage(Message);
-            }
-        }
+        public MessageChangedCommand MessageChangedCommand { get; set; }
 
         public InputVM(MessageSender sender)
         {
-            _sender = sender;
+            MessageChangedCommand = new(sender, this);
         }
     }
 }
